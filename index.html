@@ -20,16 +20,7 @@
       min-height: 100vh;
       color: var(--fg);
       font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background:
-        radial-gradient(1000px 600px at 50% 35%, #1a2742 0%, #111c31 40%, #0d1627 65%, var(--bg-2) 100%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2));
-    }
-    /* subtle dark vignette */
-    body::after {
-      content: "";
-      position: fixed; inset: 0;
-      pointer-events: none;
-      background: radial-gradient(70% 70% at 50% 50%, transparent 60%, rgba(0,0,0,.45) 100%);
+      background: radial-gradient(circle at center, #1a2742 0%, #0d1627 100%);
     }
 
     .wrap { text-align: center; padding: 2rem; }
@@ -40,26 +31,39 @@
       letter-spacing: .06em;
       font-weight: 800;
       font-size: clamp(1.8rem, 6vw, 3.6rem);
-      filter: drop-shadow(0 0 12px rgba(255,255,255,.35));
+      text-shadow: 0 0 15px rgba(255,255,255,0.4);
     }
+
     .sub {
       font-weight: 700;
       letter-spacing: .08em;
       font-size: clamp(.9rem, 2.8vw, 1.25rem);
+      margin-bottom: 1.5rem;
     }
-    /* soft neon glow */
-    .glow {
-      text-shadow:
-        0 0 6px rgba(255,255,255,.60),
-        0 0 18px rgba(255,255,255,.35),
-        0 0 36px rgba(255,255,255,.20);
+
+    .btn {
+      display: inline-block;
+      background: #5865F2;
+      color: white;
+      padding: 0.8rem 1.6rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(88,101,242,0.4);
+      transition: all 0.2s ease-in-out;
     }
-      .btn { display:inline-block; margin-top:1.5rem; padding:0.9rem 1.25rem; background:#5865F2; color:#fff; border-radius:9999px; text-decoration:none; font-weight:
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(88,101,242,0.7);
+    }
+  </style>
 </head>
 <body>
   <main class="wrap">
-    <h1 class="glow">DISCORD BOT DASHBOARD V&sup2;</h1>
-    <div class="sub glow">CREATED BY LACHLANDEV</div>
+    <h1>DISCORD BOT DASHBOARD V&sup2;</h1>
+    <div class="sub">CREATED BY LACHLANDEV</div>
+    <a href="https://discord.com" target="_blank" class="btn">Join Discord</a>
   </main>
 </body>
 </html>
