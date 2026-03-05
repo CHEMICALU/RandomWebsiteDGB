@@ -202,6 +202,7 @@ body {
 <script>
 const data = {
   currency: [
+    { name: "Old School RuneScape Gold", type: "osrs", image: "https://cdn2.steamgriddb.com/icon/eed7d5ba22bb638d57b1e1e241f763c8.png", link: "https://yourlink.com/osrs" },
     { name: "Robux", type: "roblox", image: "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/c/2/f/c2fc0404eeb8d393407bdaebe2cc9994a8953550.png", link: "https://yourlink.com/robux" },
     { name: "DonutSMP Money", type: "minecraft", image: "https://assetsdelivery.eldorado.gg/v7/_assets_/icons/v25/278.png?w=56", link: "https://yourlink.com/donutsmp" },
     { name: "Hypixel Coins", type: "minecraft", image: "https://skycoach.gg/storage/uploads/products/minecraft-hypixel-coins1752753943_picture_og.jpg", link: "https://yourlink.com/hypixel" }
@@ -249,6 +250,7 @@ function updateFilter() {
 
 function formatType(type) {
   const names = {
+    osrs: "Old School RuneScape",
     roblox: "Roblox",
     minecraft: "Minecraft",
     pathofexile: "Path of Exile",
