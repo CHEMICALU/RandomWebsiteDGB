@@ -1,12 +1,64 @@
-<div id="money" class="card" style="display:none"></div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    input {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+    }
+    .results {
+      margin-top: 30px;
+    }
+    .item {
+      margin: 10px 0;
+      padding: 10px;
+      background: #222;
+      border-radius: 6px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
 
-<script>
-fetch("/api/me").then(r => r.json()).then(me => {
-  if (!me || me.error) return;
-  fetch(`/api/money/${me.id}`).then(r => r.json()).then(data => {
-    const el = document.getElementById("money");
-    el.style.display = "block";
-    el.innerHTML = `<strong>Your balance:</strong> $${data.money}`;
-  });
-});
-</script>
+  <h1>Search</h1>
+  <input type="text" id="searchBar" placeholder="Type to search..." onkeyup="searchItems()">
+
+  <div class="results">
+    <div class="item">DONUTSMP</div>
+    <div class="item">ROBUX</div>
+    <div class="item">MINECRAFT</div>
+    <div class="item">ROBLOX</div>
+  </div>
+
+  <script>
+    function searchItems() {
+      const input = document.getElementById("searchBar").value.toUpperCase();
+      const items = document.getElementsByClassName("item");
+
+      for (let i = 0; i < items.length; i++) {
+        const text = items[i].textContent || items[i].innerText;
+        if (text.toUpperCase().indexOf(input) > -1) {
+          items[i].classList.remove("hidden");
+        } else {
+          items[i].classList.add("hidden");
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
