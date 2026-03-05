@@ -1,64 +1,165 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Search</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 50px;
-    }
-    input {
-      padding: 10px;
-      width: 250px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-    }
-    .results {
-      margin-top: 30px;
-    }
-    .item {
-      margin: 10px 0;
-      padding: 10px;
-      background: #222;
-      border-radius: 6px;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Marketplace UI</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f2f4f8;
+}
+
+/* Top Navbar */
+.navbar {
+  background: #111827;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-box {
+  width: 32px;
+  height: 32px;
+  background: #facc15;
+  border-radius: 6px;
+}
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar input {
+  width: 60%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #2d3748;
+  background: #1f2937;
+  color: white;
+  font-size: 14px;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.menu span {
+  cursor: pointer;
+  color: #d1d5db;
+}
+
+.menu span:hover {
+  color: white;
+}
+
+/* Dropdown Panel */
+.dropdown {
+  background: white;
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.dropdown h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #111827;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 60px;
+}
+
+.game-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.game-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #e5e7eb;
+}
+
+.game-item:hover {
+  color: #111827;
+}
+</style>
 </head>
 <body>
 
-  <h1>Search</h1>
-  <input type="text" id="searchBar" placeholder="Type to search..." onkeyup="searchItems()">
-
-  <div class="results">
-    <div class="item">DONUTSMP</div>
-    <div class="item">ROBUX</div>
-    <div class="item">MINECRAFT</div>
-    <div class="item">ROBLOX</div>
+<div class="navbar">
+  <div class="logo">
+    <div class="logo-box"></div>
+    Eldorado
   </div>
 
-  <script>
-    function searchItems() {
-      const input = document.getElementById("searchBar").value.toUpperCase();
-      const items = document.getElementsByClassName("item");
+  <div class="search-bar">
+    <input type="text" placeholder="Search Eldorado">
+  </div>
 
-      for (let i = 0; i < items.length; i++) {
-        const text = items[i].textContent || items[i].innerText;
-        if (text.toUpperCase().indexOf(input) > -1) {
-          items[i].classList.remove("hidden");
-        } else {
-          items[i].classList.add("hidden");
-        }
-      }
-    }
-  </script>
+  <div class="menu">
+    <span>Currency</span>
+    <span>Accounts</span>
+    <span>Top Ups</span>
+    <span>Items</span>
+    <span>Boosting</span>
+    <span>Gift Cards</span>
+  </div>
+</div>
+
+<div class="dropdown">
+  <h2>Popular games</h2>
+
+  <div class="games-grid">
+    <div class="game-item"><div class="game-icon"></div>WoW Classic Era Gold</div>
+    <div class="game-item"><div class="game-icon"></div>Old School RuneScape Gold</div>
+
+    <div class="game-item"><div class="game-icon"></div>Growtopia Locks</div>
+    <div class="game-item"><div class="game-icon"></div>Roblox Robux</div>
+
+    <div class="game-item"><div class="game-icon"></div>DonutSMP Money</div>
+    <div class="game-item"><div class="game-icon"></div>EA Sports FC Coins</div>
+
+    <div class="game-item"><div class="game-icon"></div>Blade Ball Tokens</div>
+    <div class="game-item"><div class="game-icon"></div>World of Warcraft Gold</div>
+
+    <div class="game-item"><div class="game-icon"></div>Arc Raiders Coins</div>
+    <div class="game-item"><div class="game-icon"></div>Warframe Platinum</div>
+
+    <div class="game-item"><div class="game-icon"></div>RuneScape 3 Gold</div>
+    <div class="game-item"><div class="game-icon"></div>Delta Force Tekniq Alloy</div>
+  </div>
+</div>
 
 </body>
 </html>
