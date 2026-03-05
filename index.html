@@ -5,14 +5,18 @@
 <title>GameHub Marketplace</title>
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
 body {
   background: #0d1117;
   color: #e1e8f0;
 }
 
-/* NAVBAR */
 .navbar {
   padding: 15px 40px;
   background: #11181f;
@@ -25,7 +29,6 @@ body {
   color: #38bdf8;
 }
 
-/* SHOP SECTION */
 .shop-section {
   background: #f4f5f7;
   color: #111;
@@ -46,13 +49,13 @@ body {
   display: flex;
   gap: 40px;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .category {
   text-align: center;
   color: #6b7280;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .category-icon {
@@ -70,7 +73,6 @@ body {
 
 .category.active .category-icon {
   background: #facc15;
-  color: #111;
 }
 
 .category.active {
@@ -78,7 +80,6 @@ body {
   font-weight: bold;
 }
 
-/* Controls */
 .shop-controls {
   display: flex;
   gap: 20px;
@@ -92,12 +93,12 @@ body {
   border: 1px solid #d1d5db;
   background: white;
   font-size: 14px;
-  outline: none;
 }
 
-.shop-controls input { flex: 1; }
+.shop-controls input {
+  flex: 1;
+}
 
-/* PRODUCTS */
 .products {
   max-width: 1100px;
   margin: auto;
@@ -106,22 +107,41 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
 }
 
 .card {
   background: #1f2937;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  transition: 0.25s;
+  border-radius: 14px;
+  padding: 15px;
   cursor: pointer;
+  transition: 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .card:hover {
-  transform: translateY(-4px);
   background: #111827;
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.empty {
+  color: #9ca3af;
+  font-style: italic;
 }
 </style>
 </head>
@@ -137,40 +157,30 @@ body {
     <div class="shop-title">Shop</div>
 
     <div class="category-row">
-      <div class="category" onclick="switchCategory('currency', this)">
+      <div class="category active" onclick="switchCategory('currency', this)">
         <div class="category-icon">💰</div>
-        Currency (2)
+        Currency
       </div>
 
       <div class="category" onclick="switchCategory('accounts', this)">
         <div class="category-icon">🛡</div>
-        Accounts (2)
+        Accounts
       </div>
 
-      <div class="category active" onclick="switchCategory('items', this)">
+      <div class="category" onclick="switchCategory('items', this)">
         <div class="category-icon">⚔</div>
-        Items (2)
-      </div>
-
-      <div class="category" onclick="switchCategory('topups', this)">
-        <div class="category-icon">⚡</div>
-        Top Ups (2)
+        Items
       </div>
 
       <div class="category" onclick="switchCategory('giftcards', this)">
         <div class="category-icon">🎁</div>
-        Gift Cards (2)
+        Gift Cards
       </div>
     </div>
 
     <div class="shop-controls">
-      <input type="text" id="searchInput" placeholder="Search offers" onkeyup="filterProducts()">
-      <select>
-        <option>All Games</option>
-        <option>Minecraft</option>
-        <option>Roblox</option>
-        <option>DonutSMP</option>
-      </select>
+      <input type="text" id="searchInput" placeholder="Search offers" onkeyup="renderProducts()">
+      <select id="dynamicFilter" onchange="renderProducts()"></select>
     </div>
   </div>
 </div>
@@ -181,26 +191,25 @@ body {
 
 <script>
 const data = {
-  currency: ["Robux Currency", "Minecraft Coins"],
-  accounts: ["Minecraft Account", "Roblox Account"],
-  items: ["DonutSMP Sword", "Roblox Limited Item"],
-  topups: ["Robux Top Up", "Minecraft Rank Upgrade"],
-  giftcards: ["Roblox Gift Card", "Minecraft Gift Card"]
+  currency: [
+    { name: "Robux", type: "roblox", image: "robux.png", link: "https://yourlink.com/robux" },
+    { name: "DonutSMP", type: "minecraft", image: "donutsmp.png", link: "https://yourlink.com/donutsmp" }
+  ],
+  accounts: [
+    { name: "Roblox Account", type: "roblox", image: "robloxacc.png", link: "https://yourlink.com/roblox-account" },
+    { name: "Minecraft Account", type: "minecraft", image: "mcacc.png", link: "https://yourlink.com/minecraft-account" }
+  ],
+  items: [
+    { name: "Path of Exile Chaos Orbs", type: "pathofexile", image: "poe.png", link: "https://yourlink.com/poe" },
+    { name: "Grand Piece Online Fruit", type: "gpo", image: "gpo.png", link: "https://yourlink.com/gpo" }
+  ],
+  giftcards: [
+    { name: "$1 Amazon", type: "amazon", image: "amazon.png", link: "https://yourlink.com/amazon1" },
+    { name: "$5 Xbox", type: "xbox", image: "xbox.png", link: "https://yourlink.com/xbox5" }
+  ]
 };
 
-let currentCategory = "items";
-
-function renderProducts() {
-  const grid = document.getElementById("productGrid");
-  grid.innerHTML = "";
-
-  data[currentCategory].forEach(item => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.textContent = item;
-    grid.appendChild(div);
-  });
-}
+let currentCategory = "currency";
 
 function switchCategory(category, element) {
   currentCategory = category;
@@ -210,20 +219,76 @@ function switchCategory(category, element) {
   });
 
   element.classList.add("active");
+  updateFilter();
   renderProducts();
 }
 
-function filterProducts() {
-  const input = document.getElementById("searchInput").value.toUpperCase();
-  const cards = document.querySelectorAll(".card");
+function updateFilter() {
+  const filter = document.getElementById("dynamicFilter");
+  filter.innerHTML = "";
 
-  cards.forEach(card => {
-    card.style.display = card.textContent.toUpperCase().includes(input)
-      ? ""
-      : "none";
+  const types = [...new Set(data[currentCategory].map(item => item.type))];
+
+  filter.innerHTML = "<option value='all'>All</option>";
+
+  types.forEach(type => {
+    filter.innerHTML += `<option value="${type}">${formatType(type)}</option>`;
   });
 }
 
+function formatType(type) {
+  const names = {
+    roblox: "Roblox",
+    minecraft: "Minecraft",
+    pathofexile: "Path of Exile",
+    gpo: "Grand Piece Online",
+    amazon: "Amazon",
+    xbox: "Xbox"
+  };
+  return names[type] || type;
+}
+
+function renderProducts() {
+  const grid = document.getElementById("productGrid");
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const filter = document.getElementById("dynamicFilter").value;
+
+  grid.innerHTML = "";
+
+  const items = data[currentCategory];
+
+  if (items.length === 0) {
+    grid.innerHTML = "<div class='empty'>No offers available.</div>";
+    return;
+  }
+
+  let resultsFound = false;
+
+  items.forEach(item => {
+    const matchesType = filter === "all" || item.type === filter;
+    const matchesSearch = item.name.toLowerCase().includes(search);
+
+    if (matchesType && matchesSearch) {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.onclick = () => window.location.href = item.link;
+
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="card-title">${item.name}</div>
+      `;
+
+      grid.appendChild(div);
+      resultsFound = true;
+    }
+  });
+
+  if (!resultsFound) {
+    grid.innerHTML = "<div class='empty'>No matching results.</div>";
+  }
+}
+
+updateFilter();
 renderProducts();
 </script>
 
