@@ -1,170 +1,203 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Gaming Marketplace</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+<meta charset="UTF-8">
+<title>GameHub Marketplace</title>
 
-    body {
-      background: #0d1117;
-      color: #e1e8f0;
-    }
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 40px;
-      background: #11181f;
-      border-bottom: 1px solid #27303f;
-    }
+body {
+  background: #0d1117;
+  color: #e1e8f0;
+}
 
-    .navbar .logo {
-      font-size: 24px;
-      color: #38bdf8;
-      font-weight: bold;
-    }
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #11181f;
+  border-bottom: 1px solid #27303f;
+}
 
-    .navbar input {
-      width: 350px;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      background: #1f2937;
-      color: white;
-      outline: none;
-    }
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #38bdf8;
+}
 
-    .navbar input:focus {
-      border: 1px solid #38bdf8;
-    }
+/* SHOP SECTION */
+.shop-section {
+  background: #f4f5f7;
+  color: #111;
+  padding: 40px 20px;
+}
 
-    /* Sections */
-    .section {
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
+.shop-container {
+  max-width: 1100px;
+  margin: auto;
+}
 
-    .section h2 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: #cbd5e1;
-    }
+.shop-title {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
 
-    /* Grid of cards */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 18px;
-    }
+/* Category icons row */
+.category-row {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 30px;
+}
 
-    .card {
-      background: #1f2937;
-      border-radius: 12px;
-      padding: 15px;
-      padding-bottom: 25px;
-      text-align: center;
-      transition: 0.22s;
-      cursor: pointer;
-    }
+.category {
+  text-align: center;
+  color: #6b7280;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
-    .card:hover {
-      transform: translateY(-4px);
-      background: #111827;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.45);
-    }
+.category-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  margin: auto;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
 
-    .card img {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      background: #27303f;
-    }
+.category.active .category-icon {
+  background: #facc15;
+  color: #111;
+}
 
-    .card span {
-      display: block;
-      margin-top: 8px;
-      font-size: 15px;
-      font-weight: 500;
-      color: #e1e8f0;
-    }
+.category.active {
+  color: #111;
+  font-weight: bold;
+}
 
-    /* Button CTA */
-    .btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 14px;
-      background: #38bdf8;
-      color: #0f172a;
-      font-weight: bold;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
+/* Search + filter bar */
+.shop-controls {
+  display: flex;
+  gap: 20px;
+}
 
-    .btn:hover {
-      background: #22aaff;
-    }
-  </style>
+.shop-controls input,
+.shop-controls select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.shop-controls input {
+  flex: 1;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.section h2 {
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  background: #111827;
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="logo">GameHub</div>
-    <input type="text" id="search" placeholder="Search games..." onkeyup="filterItems()">
-  </div>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">GameHub</div>
+</div>
 
-  <!-- Trending Section -->
-  <div class="section">
-    <h2>Trending Games & Currency</h2>
-    <div class="grid" id="gameGrid">
-      <div class="card"><img><span>Path of Exile</span></div>
-      <div class="card"><img><span>DonutSMP Money</span></div>
-      <div class="card"><img><span>Robux</span></div>
-      <div class="card"><img><span>Minecraft</span></div>
-      <div class="card"><img><span>Albion Online Gold</span></div>
-      <div class="card"><img><span>Diablo IV Items</span></div>
-      <div class="card"><img><span>Lost Ark Silver</span></div>
-      <div class="card"><img><span>WoW Classic Gold</span></div>
+<!-- SHOP SECTION -->
+<div class="shop-section">
+  <div class="shop-container">
+
+    <div class="shop-title">Shop</div>
+
+    <div class="category-row">
+      <div class="category">
+        <div class="category-icon">💰</div>
+        Currency (0)
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🛡</div>
+        Accounts (29)
+      </div>
+
+      <div class="category active">
+        <div class="category-icon">⚔</div>
+        Items (60)
+      </div>
+
+      <div class="category">
+        <div class="category-icon">⚡</div>
+        Top Ups (0)
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🎁</div>
+        Gift Cards (0)
+      </div>
     </div>
-  </div>
 
-  <!-- Featured Services -->
-  <div class="section">
-    <h2>Why Buy Here?</h2>
-    <div class="grid">
-      <div class="card">
-        <img><span>Instant Delivery</span>
-        <a class="btn">Learn More</a>
-      </div>
-      <div class="card">
-        <img><span>24/7 Support</span>
-        <a class="btn">Contact Us</a>
-      </div>
-      <div class="card">
-        <img><span>Secure Payments</span>
-        <a class="btn">See Methods</a>
-      </div>
+    <div class="shop-controls">
+      <input type="text" placeholder="Search offers">
+      <select>
+        <option>All Games</option>
+        <option>Minecraft</option>
+        <option>Roblox</option>
+        <option>DonutSMP</option>
+      </select>
     </div>
+
   </div>
+</div>
 
-<script>
-// Search filter
-function filterItems() {
-  const query = document.getElementById("search").value.toUpperCase();
-  const cards = document.getElementById("gameGrid").children;
-
-  for (let card of cards) {
-    const text = card.textContent.toUpperCase();
-    card.style.display = text.includes(query) ? "" : "none";
-  }
-}
-</script>
+<!-- PRODUCTS -->
+<div class="section">
+  <h2>Featured Items</h2>
+  <div class="grid">
+    <div class="card">DONUTSMP</div>
+    <div class="card">ROBUX</div>
+    <div class="card">MINECRAFT</div>
+    <div class="card">ROBLOX</div>
+  </div>
+</div>
 
 </body>
 </html>
