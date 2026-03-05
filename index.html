@@ -13,14 +13,20 @@
 }
 
 body {
-  background: #0d1117;
-  color: #e1e8f0;
+  background: #ffffff; /* Entire page white now */
+  color: #111;
 }
 
+/* NAVBAR */
 .navbar {
-  padding: 15px 40px;
   background: #11181f;
   border-bottom: 1px solid #27303f;
+  padding: 15px 0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .logo {
@@ -29,15 +35,10 @@ body {
   color: #38bdf8;
 }
 
+/* SHOP SECTION */
 .shop-section {
-  background: #f4f5f7;
-  color: #111;
-  padding: 40px 20px;
-}
-
-.shop-container {
-  max-width: 1100px;
-  margin: auto;
+  background: #ffffff;
+  padding: 40px 0;
 }
 
 .shop-title {
@@ -80,6 +81,7 @@ body {
   font-weight: bold;
 }
 
+/* SEARCH + FILTER */
 .shop-controls {
   display: flex;
   gap: 20px;
@@ -93,54 +95,55 @@ body {
   border: 1px solid #d1d5db;
   background: white;
   font-size: 14px;
+  height: 44px;
 }
 
 .shop-controls input {
   flex: 1;
 }
 
+/* PRODUCTS */
 .products {
-  max-width: 1100px;
-  margin: auto;
-  padding: 30px 20px;
+  padding: 30px 0;
+  background: #ffffff; /* White instead of black */
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 
 .card {
-  background: #1f2937;
+  background: #f3f4f6;
   border-radius: 14px;
-  padding: 15px;
+  padding: 20px;
   cursor: pointer;
   transition: 0.25s;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 
 .card:hover {
-  background: #111827;
+  background: #e5e7eb;
   transform: translateY(-5px);
 }
 
+/* 🔥 UPDATED IMAGE SIZE */
 .card img {
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
-  border-radius: 4px;
 }
 
 .card-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .empty {
-  color: #9ca3af;
+  color: #6b7280;
   font-style: italic;
 }
 </style>
@@ -148,12 +151,16 @@ body {
 
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
-  <div class="logo">GameHub</div>
+  <div class="container">
+    <div class="logo">GameHub</div>
+  </div>
 </div>
 
+<!-- SHOP -->
 <div class="shop-section">
-  <div class="shop-container">
+  <div class="container">
     <div class="shop-title">Shop</div>
 
     <div class="category-row">
@@ -185,14 +192,17 @@ body {
   </div>
 </div>
 
+<!-- PRODUCTS -->
 <div class="products">
-  <div class="grid" id="productGrid"></div>
+  <div class="container">
+    <div class="grid" id="productGrid"></div>
+  </div>
 </div>
 
 <script>
 const data = {
   currency: [
-    { name: "Robux", type: "roblox", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Robux_2019_Logo_Black.svg/1920px-Robux_2019_Logo_Black.svg.png", link: "https://yourlink.com/robux" },
+    { name: "Robux", type: "roblox", image: "robux.png", link: "https://yourlink.com/robux" },
     { name: "DonutSMP", type: "minecraft", image: "donutsmp.png", link: "https://yourlink.com/donutsmp" }
   ],
   accounts: [
@@ -256,13 +266,7 @@ function renderProducts() {
   grid.innerHTML = "";
 
   const items = data[currentCategory];
-
-  if (items.length === 0) {
-    grid.innerHTML = "<div class='empty'>No offers available.</div>";
-    return;
-  }
-
-  let resultsFound = false;
+  let found = false;
 
   items.forEach(item => {
     const matchesType = filter === "all" || item.type === filter;
@@ -279,11 +283,11 @@ function renderProducts() {
       `;
 
       grid.appendChild(div);
-      resultsFound = true;
+      found = true;
     }
   });
 
-  if (!resultsFound) {
+  if (!found) {
     grid.innerHTML = "<div class='empty'>No matching results.</div>";
   }
 }
