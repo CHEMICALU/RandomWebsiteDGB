@@ -2,164 +2,159 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Marketplace UI</title>
+<title>Game Market</title>
+
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 body {
-  background: #f2f4f8;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
 }
 
-/* Top Navbar */
+/* Navbar */
 .navbar {
-  background: #111827;
-  color: white;
-  padding: 12px 24px;
   display: flex;
   align-items: center;
-  gap: 25px;
+  justify-content: space-between;
+  padding: 18px 40px;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .logo {
   font-size: 22px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-box {
-  width: 32px;
-  height: 32px;
-  background: #facc15;
-  border-radius: 6px;
-}
-
-.search-bar {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.search-bar input {
-  width: 60%;
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid #2d3748;
-  background: #1f2937;
-  color: white;
-  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .menu {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   font-size: 14px;
+  color: #cbd5e1;
 }
 
 .menu span {
   cursor: pointer;
-  color: #d1d5db;
+  transition: 0.2s;
 }
 
 .menu span:hover {
-  color: white;
+  color: #38bdf8;
 }
 
-/* Dropdown Panel */
-.dropdown {
-  background: white;
-  width: 90%;
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+/* Search */
+.search-container {
+  text-align: center;
+  margin: 40px 0 20px;
 }
 
-.dropdown h2 {
-  margin-bottom: 20px;
-  font-size: 18px;
-  color: #111827;
-}
-
-.games-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px 60px;
-}
-
-.game-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.search-container input {
+  width: 400px;
+  max-width: 90%;
+  padding: 12px 18px;
+  border-radius: 50px;
+  border: none;
   font-size: 15px;
-  color: #374151;
+  background: #1e293b;
+  color: white;
+  outline: none;
+  border: 1px solid #334155;
+}
+
+.search-container input:focus {
+  border-color: #38bdf8;
+}
+
+/* Games Section */
+.section {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section h2 {
+  margin-bottom: 25px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
   cursor: pointer;
+  transition: 0.25s ease;
+  border: 1px solid transparent;
 }
 
-.game-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: #e5e7eb;
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #38bdf8;
+  background: #0f172a;
 }
 
-.game-item:hover {
-  color: #111827;
+.hidden {
+  display: none;
 }
 </style>
 </head>
+
 <body>
 
 <div class="navbar">
-  <div class="logo">
-    <div class="logo-box"></div>
-    Eldorado
-  </div>
-
-  <div class="search-bar">
-    <input type="text" placeholder="Search Eldorado">
-  </div>
-
+  <div class="logo">GameMarket</div>
   <div class="menu">
     <span>Currency</span>
     <span>Accounts</span>
-    <span>Top Ups</span>
     <span>Items</span>
     <span>Boosting</span>
-    <span>Gift Cards</span>
   </div>
 </div>
 
-<div class="dropdown">
-  <h2>Popular games</h2>
+<div class="search-container">
+  <input type="text" id="searchBar" placeholder="Search games..." onkeyup="searchGames()">
+</div>
 
-  <div class="games-grid">
-    <div class="game-item"><div class="game-icon"></div>WoW Classic Era Gold</div>
-    <div class="game-item"><div class="game-icon"></div>Old School RuneScape Gold</div>
-
-    <div class="game-item"><div class="game-icon"></div>Growtopia Locks</div>
-    <div class="game-item"><div class="game-icon"></div>Roblox Robux</div>
-
-    <div class="game-item"><div class="game-icon"></div>DonutSMP Money</div>
-    <div class="game-item"><div class="game-icon"></div>EA Sports FC Coins</div>
-
-    <div class="game-item"><div class="game-icon"></div>Blade Ball Tokens</div>
-    <div class="game-item"><div class="game-icon"></div>World of Warcraft Gold</div>
-
-    <div class="game-item"><div class="game-icon"></div>Arc Raiders Coins</div>
-    <div class="game-item"><div class="game-icon"></div>Warframe Platinum</div>
-
-    <div class="game-item"><div class="game-icon"></div>RuneScape 3 Gold</div>
-    <div class="game-item"><div class="game-icon"></div>Delta Force Tekniq Alloy</div>
+<div class="section">
+  <h2>Popular Games</h2>
+  <div class="grid">
+    <div class="card">DONUTSMP</div>
+    <div class="card">ROBUX</div>
+    <div class="card">MINECRAFT</div>
+    <div class="card">ROBLOX</div>
   </div>
 </div>
+
+<script>
+function searchGames() {
+  const input = document.getElementById("searchBar").value.toUpperCase();
+  const cards = document.getElementsByClassName("card");
+
+  for (let i = 0; i < cards.length; i++) {
+    const text = cards[i].textContent || cards[i].innerText;
+    if (text.toUpperCase().indexOf(input) > -1) {
+      cards[i].classList.remove("hidden");
+    } else {
+      cards[i].classList.add("hidden");
+    }
+  }
+}
+</script>
 
 </body>
 </html>
